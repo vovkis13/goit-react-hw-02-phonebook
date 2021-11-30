@@ -34,11 +34,11 @@ export default class App extends Component {
     window.alert(`${contactName} is already in contacts.`);
   };
 
-  deleteItemFromContacts = (e, deletedId) => {
+  deleteItemFromContacts = e => {
     e.preventDefault();
     this.setState(prevState => {
       const tempArr = prevState.contacts.filter(
-        contact => contact.id !== deletedId,
+        contact => contact.id !== e.target.value,
       );
       return { contacts: [...tempArr] };
     });
@@ -51,7 +51,7 @@ export default class App extends Component {
     );
   };
 
-  setFilterValue = filterValue => this.setState({ filter: filterValue });
+  setFilterValue = e => this.setState({ filter: e.target.value });
 
   render() {
     return (
@@ -59,7 +59,10 @@ export default class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm onFormSubmit={this.addItemToContacts} />
         <h2>Contacts</h2>
-        <Filter onChangeFilterValue={this.setFilterValue} />
+        <Filter
+          filter={this.state.filter}
+          onChangeFilterValue={this.setFilterValue}
+        />
         <ContactList
           filteredContacts={this.filterContacts()}
           deleteContact={this.deleteItemFromContacts}

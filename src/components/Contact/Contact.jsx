@@ -8,7 +8,7 @@ export default function Contact({ contact, onDelete }) {
     <li className={s.contact}>
       <p>{name}</p>
       <p>{number}</p>
-      <button className={s.button} type="button" onClick={e => onDelete(e, id)}>
+      <button className={s.button} type="button" value={id} onClick={onDelete}>
         Delete
       </button>
     </li>
