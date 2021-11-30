@@ -35,6 +35,7 @@ export default class App extends Component {
       contact.name.toLowerCase().includes(filter.toLowerCase()),
     );
   };
+
   deleteItemFromContacts = (e, deletedId) => {
     e.preventDefault();
     this.setState(prevState => {
@@ -44,13 +45,18 @@ export default class App extends Component {
       return { contacts: [...tempArr] };
     });
   };
+
+  getFilterValue = filterText => {
+    this.setState({ filter: filterText });
+  };
+
   render() {
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm submitHandler={this.handleSubmit} />
         <h2>Contacts</h2>
-        <Filter filter={this.state.filter} />
+        <Filter sendFilterValue={this.getFilterValue} />
         <ContactList
           filteredContacts={this.getFilteredContacts()}
           deleteContact={this.deleteItemFromContacts}

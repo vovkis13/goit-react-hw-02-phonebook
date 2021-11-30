@@ -8,9 +8,9 @@ export default function ContactList({ filteredContacts, deleteContact }) {
     <ul className={s.contacts}>
       {filteredContacts.map(filteredContact => (
         <Contact
-          contact={filteredContact}
           key={filteredContact.id}
-          handleDelete={deleteContact}
+          contact={filteredContact}
+          onDelete={deleteContact}
         />
       ))}
     </ul>
@@ -19,4 +19,5 @@ export default function ContactList({ filteredContacts, deleteContact }) {
 
 ContactList.propTypes = {
   filteredContacts: PropTypes.array.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };
