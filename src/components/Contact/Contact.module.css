@@ -1,0 +1,13 @@
+.contact {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.button {
+  display: block;
+  width: 60px;
+  height: 20px;
+}
