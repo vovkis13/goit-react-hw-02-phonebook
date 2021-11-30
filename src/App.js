@@ -18,17 +18,20 @@ export default class App extends Component {
 
   addItemToContacts = (e, contactName, contactNumber) => {
     e.preventDefault();
-    this.setState(prevState => ({
-      contacts: [
-        {
-          id: nanoid(),
-          name: contactName,
-          number: contactNumber,
-        },
-        ...prevState.contacts,
-      ],
-    }));
-    this.filterContacts();
+    if (!this.state.contacts.find(contact => contact.name === contactName)) {
+      this.setState(prevState => ({
+        contacts: [
+          {
+            id: nanoid(),
+            name: contactName,
+            number: contactNumber,
+          },
+          ...prevState.contacts,
+        ],
+      }));
+      return;
+    }
+    window.alert(`${contactName} is already in contacts.`);
   };
 
   deleteItemFromContacts = (e, deletedId) => {
