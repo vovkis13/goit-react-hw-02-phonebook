@@ -15,25 +15,20 @@ export default class App extends Component {
     ],
     filter: '',
   };
-  handleSubmit = (e, nameForContacts, numberForContacts) => {
+
+  addItemToContacts = (e, contactName, contactNumber) => {
     e.preventDefault();
     this.setState(prevState => ({
       contacts: [
         {
           id: nanoid(),
-          name: nameForContacts,
-          number: numberForContacts,
+          name: contactName,
+          number: contactNumber,
         },
         ...prevState.contacts,
       ],
     }));
-  };
-
-  getFilteredContacts = () => {
-    const { contacts, filter } = this.state;
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
-    );
+    this.filterContacts();
   };
 
   deleteItemFromContacts = (e, deletedId) => {
@@ -46,19 +41,24 @@ export default class App extends Component {
     });
   };
 
-  getFilterValue = filterText => {
-    this.setState({ filter: filterText });
+  filterContacts = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()),
+    );
   };
+
+  setFilterValue = filterValue => this.setState({ filter: filterValue });
 
   render() {
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm submitHandler={this.handleSubmit} />
+        <ContactForm onFormSubmit={this.addItemToContacts} />
         <h2>Contacts</h2>
-        <Filter sendFilterValue={this.getFilterValue} />
+        <Filter onChangeFilterValue={this.setFilterValue} />
         <ContactList
-          filteredContacts={this.getFilteredContacts()}
+          filteredContacts={this.filterContacts()}
           deleteContact={this.deleteItemFromContacts}
         />
       </div>

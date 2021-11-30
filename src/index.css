@@ -1,5 +1,6 @@
 @import-normalize;
 body {
+  width: 480px;
   padding: 40px;
   margin: 0;
   font-family: 'Roboto', 'Oxygen',
@@ -14,11 +15,3 @@ code {
     monospace;
 }
 
-.input {
-  display: block;
-  margin-bottom: 10px;
-
-}
-.button {
-  display: block;
-}
