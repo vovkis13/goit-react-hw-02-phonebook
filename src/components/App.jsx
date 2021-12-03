@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 
-import ContactForm from './components/ContactForm';
-import Filter from './components/Filter';
-import ContactList from './components/ContactList';
+import ContactForm from './ContactForm';
+import Filter from './Filter';
+import ContactList from './ContactList/';
 
 export default class App extends Component {
   state = {
@@ -11,22 +11,25 @@ export default class App extends Component {
     filter: '',
   };
 
-  addItemToContacts = (e, contactName, contactNumber) => {
+  addItemToContacts = (e, newName, newNumber) => {
     e.preventDefault();
-    if (!this.state.contacts.find(contact => contact.name === contactName)) {
-      this.setState(prevState => ({
-        contacts: [
-          {
-            id: nanoid(),
-            name: contactName,
-            number: contactNumber,
-          },
-          ...prevState.contacts,
-        ],
-      }));
-      return;
-    }
-    window.alert(`${contactName} is already in contacts.`);
+    if (
+      this.state.contacts.find(
+        ({ name }) => name.toLowerCase() === newName.toLowerCase(),
+      )
+    )
+      return window.alert(`${newName} is already in contacts.`);
+
+    this.setState(prevState => ({
+      contacts: [
+        {
+          id: nanoid(),
+          name: newName,
+          number: newNumber,
+        },
+        ...prevState.contacts,
+      ],
+    }));
   };
 
   deleteItemFromContacts = e => {
@@ -41,8 +44,8 @@ export default class App extends Component {
 
   filterContacts = () => {
     const { contacts, filter } = this.state;
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()),
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(filter.toLowerCase()),
     );
   };
 
